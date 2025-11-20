@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARMCO System Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Apply Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom gradient for hero text - Matched to your App UI (Purple/Lavender) */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #c084fc, #818cf8); /* Purple to Indigo */
+        }
+
+        /* Simple scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6; /* Violet */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed; 
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-200 selection:bg-purple-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 w-full bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="text-2xl font-bold text-white">
+                    PARM<span class="text-purple-400">CO</span> System
+                </a>
+                
+                <div class="hidden sm:flex sm:space-x-8">
+                    <a href="#about" class="font-medium text-gray-300 hover:text-purple-400 transition duration-150">System Overview</a>
+                    <a href="#modes" class="font-medium text-gray-300 hover:text-purple-400 transition duration-150">Control Modes</a>
+                    <a href="#gallery" class="font-medium text-gray-300 hover:text-purple-400 transition duration-150">Gallery</a>
+                    <a href="#code" class="font-medium text-gray-300 hover:text-purple-400 transition duration-150">C-Code</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="relative flex items-center justify-center min-h-screen pt-16 pb-32 overflow-hidden">
+            <div aria-hidden="true" class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gray-950"></div>
+                <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-900/40 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+                <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-900/40 rounded-full blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+            </div>
+
+            <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase">
+                    The <span class="text-gradient">PARMCO</span> System
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+                    Precision Automated Remote Motor Control & Observation. A closed-loop PID system powered by <strong>C (BlueZ/Pigpio)</strong> and controlled via Bluetooth.
+                </p>
+                <div class="mt-10 flex justify-center gap-4">
+                    <a href="#gallery" class="px-8 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-lg shadow-purple-500/20 hover:bg-purple-500 transition duration-200 transform hover:scale-105">
+                        View Setup
+                    </a>
+                    <a href="#code" class="px-8 py-3 bg-gray-800 text-gray-200 font-bold rounded-lg shadow-lg hover:bg-gray-700 transition duration-200 transform hover:scale-105">
+                        View The C Code
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 sm:py-32 bg-gray-900">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        <img 
+                            src="parmco_setup.jpg" 
+                            alt="PARMCO Physical Setup" 
+                            class="relative rounded-lg shadow-2xl border border-gray-800 w-full object-cover"
+                        >
+                    </div>
+                    
+                    <div>
+                        <span class="text-sm font-bold uppercase text-purple-400">Hardware Architecture</span>
+                        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold text-white">
+                            Closed-Loop Feedback
+                        </h2>
+                        <p class="mt-6 text-lg text-gray-300">
+                            The PARMCO system is built for speed and accuracy. Unlike Python implementations, our backend is written in <strong>C</strong> to handle microsecond-level GPIO interrupts.
+                        </p>
+                        <p class="mt-4 text-lg text-gray-300">
+                            <strong class="text-white">The Loop:</strong> The Raspberry Pi reads the sensor data via `pigpiod`, calculates the RPM, and runs a PID algorithm to adjust the PWM signal in real-time, maintaining target speed within <1% error.
+                        </p>
+                        <ul class="mt-6 space-y-2 text-gray-400">
+                            <li class="flex items-center"><span class="text-purple-400 mr-2">✓</span> Low-Latency C Backend</li>
+                            <li class="flex items-center"><span class="text-purple-400 mr-2">✓</span> Bluetooth RFCOMM Protocol</li>
+                            <li class="flex items-center"><span class="text-purple-400 mr-2">✓</span> PID Error Correction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modes" class="py-24 sm:py-32">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <span class="text-sm font-bold uppercase text-purple-400">App Capabilities</span>
+                    <h2 class="mt-2 text-3xl md:text-4xl font-extrabold text-white">
+                        Dual Control Modes
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
+                        The custom Android application connects directly via Bluetooth Sockets to the C server.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-900 p-8 rounded-lg shadow-lg border border-gray-800 transform transition duration-300 hover:scale-[1.02] hover:border-purple-500">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-2xl font-bold text-white">Manual Mode</h3>
+                            <svg class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                        </div>
+                        <p class="mt-4 text-gray-300">
+                            Direct control over the motor's duty cycle. The App sends character commands (e.g., 'f' for faster, 'd' for slower) which the C state machine processes immediately.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-900 p-8 rounded-lg shadow-lg border border-gray-800 transform transition duration-300 hover:scale-[1.02] hover:border-purple-500">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-2xl font-bold text-white">Automatic (PID) Mode</h3>
+                            <svg class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <p class="mt-4 text-gray-300">
+                             Input a "Desired RPM" (e.g., 1200). The C backend calculates the error between the optical sensor reading and your target, applying Proportional and Integral logic to stabilize the motor.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="py-24 sm:py-32 bg-gray-900">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-sm font-bold uppercase text-purple-400">Visuals</span>
+                    <h2 class="mt-2 text-3xl md:text-4xl font-extrabold text-white">
+                        System Gallery
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-purple-600 opacity-0 group-hover:opacity-10 transition duration-300 rounded-lg"></div>
+                        <img src="parmco_app1.jpg" alt="Automatic Mode UI" class="h-full w-full object-contain bg-black rounded-lg border border-gray-800 shadow-lg">
+                        <p class="mt-2 text-center text-sm text-gray-400">Automatic Mode UI</p>
+                    </div>
+
+                     <div class="group relative md:col-span-1">
+                        <div class="absolute inset-0 bg-purple-600 opacity-0 group-hover:opacity-10 transition duration-300 rounded-lg"></div>
+                        <img src="parmco_setup.jpg" alt="Circuit Setup" class="h-full w-full object-cover rounded-lg border border-gray-800 shadow-lg">
+                        <p class="mt-2 text-center text-sm text-gray-400">Physical Circuit & Pi</p>
+                    </div>
+
+                    <div class="group relative">
+                        <div class="absolute inset-0 bg-purple-600 opacity-0 group-hover:opacity-10 transition duration-300 rounded-lg"></div>
+                        <img src="parmco_app2.jpg" alt="Manual Mode UI" class="h-full w-full object-contain bg-black rounded-lg border border-gray-800 shadow-lg">
+                        <p class="mt-2 text-center text-sm text-gray-400">Manual Mode UI</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="code" class="py-24 sm:py-32">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <div>
+                    <span class="text-sm font-bold uppercase text-purple-400">The Build</span>
+                    <h2 class="mt-2 text-3xl md:text-4xl font-extrabold text-white">
+                        Technical Specifications
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-300">
+                        The high-performance components that drive the PARMCO system.
+                    </p>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-start">
+                            <svg class="flex-shrink-0 h-6 w-6 text-purple-400 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="ml-3 text-lg text-gray-200"><strong class="font-bold text-white">Language:</strong> C (gcc compiled)</span>
+                        </li>
+                         <li class="flex items-start">
+                            <svg class="flex-shrink-0 h-6 w-6 text-purple-400 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="ml-3 text-lg text-gray-200"><strong class="font-bold text-white">Libraries:</strong> Pigpio (GPIO), BlueZ (Bluetooth)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="flex-shrink-0 h-6 w-6 text-purple-400 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="ml-3 text-lg text-gray-200"><strong class="font-bold text-white">Communication:</strong> RFCOMM Channel 22</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="flex-shrink-0 h-6 w-6 text-purple-400 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="ml-3 text-lg text-gray-200"><strong class="font-bold text-white">Driver:</strong> L298N H-Bridge</span>
+                        </li>
+                         <li class="flex items-start">
+                            <svg class="flex-shrink-0 h-6 w-6 text-purple-400 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="ml-3 text-lg text-gray-200"><strong class="font-bold text-white">Algorithm:</strong> PID (Proportional-Integral) Control</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <span class="text-sm font-bold uppercase text-purple-400">The Logic</span>
+                    <h2 class="mt-2 text-3xl md:text-4xl font-extrabold text-white">
+                        C PID Logic
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-300">
+                        The core C function that handles error correction and auto-tuning.
+                    </p>
+                    
+                    <div class="mt-8 bg-gray-900 rounded-lg overflow-hidden border border-gray-800 shadow-2xl">
+                        <div class="p-4 bg-gray-800 text-gray-400 text-sm font-mono border-b border-gray-700 flex justify-between">
+                            <span>parmco_server.c</span>
+                            <span class="text-xs text-gray-500">GCC</span>
+                        </div>
+                        <pre class="p-6 text-sm text-white overflow-x-auto h-96"><code class="language-c"><span class="text-gray-500">/* * FUNCTION: update_pid_controller
+ * Calculates the difference between Target RPM and Actual RPM,
+ * then adjusts the motor speed (PWM) to minimize that error.
+ */</span>
+<span class="text-purple-400">void</span> <span class="text-blue-400">update_pid_controller</span>() {
+    <span class="text-pink-400">if</span> (current_mode != AUTO_MODE || !motor_running) <span class="text-pink-400">return</span>;
+
+    <span class="text-gray-500">// 1. Calculate Error</span>
+    <span class="text-purple-400">double</span> error = (<span class="text-purple-400">double</span>)desired_rpm - (<span class="text-purple-400">double</span>)rpm_smooth;
+
+    <span class="text-gray-500">// 2. Calculate Integral (Accumulated Error)</span>
+    pid_integral += error;
+    <span class="text-pink-400">if</span> (pid_integral > PID_MAX_INTEGRAL) pid_integral = PID_MAX_INTEGRAL;
+    <span class="text-pink-400">if</span> (pid_integral < PID_MIN_INTEGRAL) pid_integral = PID_MIN_INTEGRAL;
+
+    <span class="text-gray-500">// 3. Compute Output (P + I + D)</span>
+    <span class="text-purple-400">double</span> output = (PID_KP * error) + (PID_KI * pid_integral);
+
+    <span class="text-gray-500">// 4. Limit the rate of change (Safety)</span>
+    <span class="text-purple-400">int</span> change = (<span class="text-purple-400">int</span>)output;
+    <span class="text-pink-400">if</span> (change > MAX_CHANGE_PER_LOOP) change = MAX_CHANGE_PER_LOOP;
+    <span class="text-pink-400">if</span> (change < -MAX_CHANGE_PER_LOOP) change = -MAX_CHANGE_PER_LOOP;
+
+    <span class="text-gray-500">// 5. Apply to global speed</span>
+    speed_percent += change;
+    <span class="text-pink-400">if</span> (speed_percent > <span class="text-yellow-300">100</span>) speed_percent = <span class="text-yellow-300">100</span>;
+    <span class="text-pink-400">if</span> (speed_percent < <span class="text-yellow-300">0</span>) speed_percent = <span class="text-yellow-300">0</span>;
+
+    <span class="text-gray-500">// 6. Write to Hardware (PWM)</span>
+    hardware_PWM(pi, SPEED_PIN, PWM_FREQ, speed_percent * <span class="text-yellow-300">10000</span>);
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left">
+                    <p class="text-lg font-bold">PARMCO System</p>
+                    <p class="mt-1 text-gray-400">© 2025. C-Based Embedded Control.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
